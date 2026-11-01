@@ -455,26 +455,26 @@
       </div>
 
       <!-- 3 Gift Boxes -->
-      <div class="grid grid-cols-3 gap-2 sm:gap-10 md:gap-16 max-w-5xl w-full items-center justify-items-center my-auto px-1">
+      <div class="grid grid-cols-3 gap-3 sm:gap-10 md:gap-16 max-w-5xl w-full items-center justify-items-center my-auto px-3">
 
         <div class="flex flex-col items-center justify-center">
           <div class="gift-float-1">
             <img src="images/gift box.png" alt="Gift 1" onclick="openGift('gift1')"
-              class="gift-box-img w-[30vw] sm:w-48 md:w-64 lg:w-72 max-w-[160px] sm:max-w-none cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
+              class="gift-box-img w-[28vw] sm:w-48 md:w-64 lg:w-72 cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
           </div>
         </div>
 
         <div class="flex flex-col items-center justify-center">
           <div class="gift-float-2">
             <img src="images/gift box.png" alt="Gift 2" onclick="openGift('gift2')"
-              class="gift-box-img w-[30vw] sm:w-48 md:w-64 lg:w-72 max-w-[160px] sm:max-w-none cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
+              class="gift-box-img w-[28vw] sm:w-48 md:w-64 lg:w-72 cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
           </div>
         </div>
 
         <div class="flex flex-col items-center justify-center">
           <div class="gift-float-3">
             <img src="images/gift box.png" alt="Gift 3" onclick="openGift('gift3')"
-              class="gift-box-img w-[30vw] sm:w-48 md:w-64 lg:w-72 max-w-[160px] sm:max-w-none cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
+              class="gift-box-img w-[28vw] sm:w-48 md:w-64 lg:w-72 cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
           </div>
         </div>
 
@@ -695,21 +695,22 @@
   <!-- ============================================================ -->
   <!-- GIFT 3: Envelope Letter & Photo Strip                        -->
   <!-- ============================================================ -->
-  <div id="gift3" class="min-h-screen w-full bg-birthday overflow-x-hidden" style="display:none;">
-    <div class="flex flex-col items-center justify-center min-h-screen p-6 md:p-12 relative">
+  <div id="gift3" class="w-full bg-birthday overflow-x-hidden" style="display:none;">
+    <!-- Scrollable inner wrapper -->
+    <div id="gift3Inner" class="flex flex-col items-center px-4 pt-8 pb-28 md:min-h-screen md:justify-center md:p-12 relative">
 
       <!-- Collage Container -->
-      <div class="relative w-full max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0 my-auto py-8">
+      <div class="relative w-full max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-5 md:gap-0 md:py-8">
 
         <!-- Chat Bubbles (top-center) -->
         <img
           src="images/bubbles.png"
           alt="Chat bubbles"
-          class="g3-bubbles md:absolute md:-top-8 md:left-[38%] z-30 w-36 sm:w-44 md:w-52 drop-shadow-md select-none pointer-events-none"
+          class="g3-bubbles md:absolute md:-top-8 md:left-[38%] z-30 w-32 sm:w-40 md:w-52 drop-shadow-md select-none pointer-events-none"
           onerror="this.style.display='none'; document.getElementById('g3BubblesFallback').style.display='flex';"
         />
         <!-- Fallback bubbles -->
-        <div id="g3BubblesFallback" class="g3-bubbles md:absolute md:-top-8 md:left-[38%] z-30 w-36 sm:w-44 md:w-52 flex-col items-start gap-1 select-none pointer-events-none" style="display:none;">
+        <div id="g3BubblesFallback" class="g3-bubbles md:absolute md:-top-8 md:left-[38%] z-30 w-32 sm:w-40 md:w-52 flex-col items-start gap-1 select-none pointer-events-none" style="display:none;">
           <div style="background:#B8E2F8;border:2px solid #2B6CB0;border-radius:12px 12px 12px 0;padding:6px 12px;font-size:0.75rem;font-weight:700;color:#1a365d;">Love you ♡ friend greeting</div>
           <div style="background:white;border:2px solid #ccc;border-radius:12px 12px 0 12px;padding:6px 12px;font-size:0.75rem;font-weight:700;color:#555;">♡♡♡♡</div>
         </div>
@@ -718,7 +719,7 @@
         <img
           src="images/stamp.png"
           alt="Vintage stamp"
-          class="g3-stamp md:absolute md:-top-10 md:right-[15%] z-20 w-20 sm:w-24 md:w-28 drop-shadow-md hover:rotate-6 transition-transform cursor-pointer select-none"
+          class="g3-stamp md:absolute md:-top-10 md:right-[15%] z-20 w-16 sm:w-20 md:w-28 drop-shadow-md hover:rotate-6 transition-transform cursor-pointer select-none"
         />
 
         <!-- Photo Strip (left) -->
@@ -726,18 +727,27 @@
           src="images/photostrip.png"
           alt="Photo booth strip"
           onclick="openLightbox('images/photostrip.png')"
-          class="g3-strip relative z-20 w-44 sm:w-52 md:w-60 shadow-2xl hover:rotate-0 hover:scale-105 transition-all duration-500 cursor-pointer select-none"
+          class="g3-strip relative z-20 w-36 sm:w-48 md:w-60 shadow-2xl hover:rotate-0 hover:scale-105 transition-all duration-500 cursor-pointer select-none"
         />
 
         <!-- Envelope Letter (right) -->
         <img
+          id="g3Envelope"
           src="images/envelope-letter.png"
           alt="Envelope letter"
           onclick="openLightbox('images/envelope-letter.png')"
-          class="g3-envelope relative z-10 md:-ml-6 w-72 sm:w-80 md:w-[420px] drop-shadow-2xl hover:rotate-2 hover:scale-105 transition-all duration-500 cursor-pointer select-none"
+          class="g3-envelope relative z-10 md:-ml-6 w-[82vw] max-w-xs sm:w-80 md:w-[420px] drop-shadow-2xl hover:rotate-2 hover:scale-105 transition-all duration-500 cursor-pointer select-none"
         />
 
       </div>
+    </div>
+
+    <!-- Scroll hint arrow (mobile only, hidden once envelope is visible) -->
+    <div id="g3ScrollHint" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-1 pointer-events-none md:hidden" style="display:none !important;">
+      <span class="text-white/90 text-sm font-semibold tracking-wide select-none">scroll down</span>
+      <svg class="w-7 h-7 text-white animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+      </svg>
     </div>
 
     <!-- Lightbox Modal -->
@@ -1191,7 +1201,11 @@
     };
 
     function resetGift3() {
-      // Re-trigger entrance animations by cloning each element
+      // Scroll to top
+      const inner = document.getElementById('gift3Inner');
+      if (inner) inner.scrollTop = 0;
+      window.scrollTo(0, 0);
+      // Re-trigger entrance animations
       ['g3-bubbles','g3-stamp','g3-strip','g3-envelope'].forEach(cls => {
         document.querySelectorAll('#gift3 .' + cls).forEach(el => {
           el.style.animation = 'none';
@@ -1199,7 +1213,30 @@
           el.style.animation = '';
         });
       });
+      // Start scroll hint observer on mobile
+      setTimeout(checkG3ScrollHint, 800);
     }
+
+    function checkG3ScrollHint() {
+      const hint = document.getElementById('g3ScrollHint');
+      const env  = document.getElementById('g3Envelope');
+      if (!hint || !env) return;
+      // Only show on mobile (md = 768px)
+      if (window.innerWidth >= 768) { hint.style.setProperty('display','none','important'); return; }
+      const rect = env.getBoundingClientRect();
+      const fullyVisible = rect.bottom <= window.innerHeight;
+      hint.style.setProperty('display', fullyVisible ? 'none' : 'flex', 'important');
+    }
+
+    // Hide scroll hint as soon as envelope scrolls into view
+    window.addEventListener('scroll', () => {
+      const hint = document.getElementById('g3ScrollHint');
+      const env  = document.getElementById('g3Envelope');
+      if (!hint || !env) return;
+      if (env.getBoundingClientRect().bottom <= window.innerHeight) {
+        hint.style.setProperty('display','none','important');
+      }
+    });
 
     function openLightbox(src) {
       const lb = document.getElementById('g3Lightbox');
