@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎂 Happy Birthday!</title>
+
+  <!-- Google Font: Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            fredoka: ["'Fredoka'", "sans-serif"],
+          },
+          colors: {
+            birthday: "#E32626",
+            cream: "#F8F7F2",
+            coral: "#E85C75",
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Shake animation for wrong passcode */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
+      20%, 40%, 60%, 80% { transform: translateX(6px); }
+    }
+    .shake {
+      animation: shake 0.5s ease-in-out;
+    }
+
+    /* Fade-in for the NEXT button */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade-in-up {
+      animation: fadeInUp 0.4s ease-out forwards;
+    }
+
+    /* Gentle floating animation for stickers */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(var(--float-rot, 0deg)); }
+      50% { transform: translateY(-6px) rotate(var(--float-rot, 0deg)); }
+    }
+    .float-anim {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* ─── Page 2 Animations ─── */
+
+    /* Bounce-in entrance for the birthday GIF */
+    @keyframes bounceIn {
+      0%   { opacity: 0; transform: scale(0.8); }
+      50%  { opacity: 1; transform: scale(1.05); }
+      70%  { transform: scale(0.97); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .bounce-in {
+      animation: bounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    /* Soft continuous float for the GIF */
+    @keyframes floatGif {
+      0%, 100% { transform: translateY(0px); }
+      50%      { transform: translateY(-10px); }
+    }
+    .float-gif {
+      animation: floatGif 3.5s ease-in-out infinite;
+    }
+
+    /* Fade-in-up for the NEXT button on Page 2 */
+    @keyframes p2FadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .p2-fade-in {
+      animation: p2FadeIn 0.6s 0.8s ease-out forwards;
+      opacity: 0;
+    }
+
+    /* Arched "HAPPY BIRTHDAY" header via CSS path */
+    .arch-text {
+      font-size: clamp(1.6rem, 5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    /* ─── Page 3: Gift Box Floating Animations ─── */
+    @keyframes giftFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%      { transform: translateY(-8px) rotate(1deg); }
+    }
+    .gift-float-1 { animation: giftFloat 3.2s ease-in-out infinite; }
+    .gift-float-2 { animation: giftFloat 3.8s ease-in-out infinite 0.6s; }
+    .gift-float-3 { animation: giftFloat 3.4s ease-in-out infinite 1.2s; }
+
+    /* ─── Gift 1: Flame Flicker ─── */
+    @keyframes flicker {
+      0%,100% { transform: scaleY(1)    scaleX(1)    translateY(0);   opacity: 1; }
+      25%     { transform: scaleY(1.08) scaleX(0.93) translateY(-1px); opacity: 0.92; }
+      50%     { transform: scaleY(0.94) scaleX(1.06) translateY(1px);  opacity: 1; }
+      75%     { transform: scaleY(1.05) scaleX(0.96) translateY(-1px); opacity: 0.95; }
+    }
+    .flame { animation: flicker 0.9s ease-in-out infinite; transform-origin: bottom center; }
+    .flame-1 { animation-delay: 0s; }
+    .flame-2 { animation-delay: 0.13s; }
+    .flame-3 { animation-delay: 0.27s; }
+    .flame-4 { animation-delay: 0.07s; }
+    .flame-5 { animation-delay: 0.21s; }
+    .flame-6 { animation-delay: 0.35s; }
+    .flame-7 { animation-delay: 0.17s; }
+
+    /* ─── Gift 1: Smoke Puff ─── */
+    @keyframes smokeRise {
+      0%   { transform: translateY(0)   scaleX(1);   opacity: 0.7; }
+      60%  { transform: translateY(-22px) scaleX(1.4); opacity: 0.35; }
+      100% { transform: translateY(-40px) scaleX(1.8); opacity: 0; }
+    }
+    .smoke {
+      animation: smokeRise 1.4s ease-out forwards;
+      pointer-events: none;
+    }
+
+    /* ─── Gift 1: Star Twinkle ─── */
+    @keyframes twinkle {
+      0%,100% { transform: scale(0.65) rotate(0deg);   opacity: 0.45; }
+      50%     { transform: scale(1.15) rotate(15deg);  opacity: 1; }
+    }
+    .star-twinkle   { animation: twinkle 1.8s ease-in-out infinite; }
+    .star-twinkle-2 { animation: twinkle 2.3s ease-in-out infinite 0.5s; }
+    .star-twinkle-3 { animation: twinkle 1.6s ease-in-out infinite 1.1s; }
+    .star-twinkle-4 { animation: twinkle 2.1s ease-in-out infinite 0.3s; }
+    .star-twinkle-5 { animation: twinkle 1.9s ease-in-out infinite 0.8s; }
+
+    /* ─── Gift 1: Wish message fade-in ─── */
+    @keyframes wishFadeIn {
+      from { opacity: 0; transform: scale(0.88); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .wish-appear { animation: wishFadeIn 0.55s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+
+    /* ─── Typewriter ─── */
+    @keyframes caretBlink {
+      0%,100% { border-color: transparent; }
+      50%     { border-color: white; }
+    }
+    .typewriter-wrap {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid white;
+      animation: caretBlink 0.75s step-end infinite;
+      max-width: 0;
+      transition: max-width 0s;
+    }
+    .typewriter-wrap.typing {
+      transition: max-width var(--tw-duration, 2s) steps(var(--tw-steps, 20), end);
+      max-width: 100%;
+    }
+
+    /* ─── Sparkle overlay ─── */
+    .sparkle-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.45;
+    }
+
+    /* ─── Gift 2: 3D Book ─── */
+    .book-scene { perspective: 2000px; }
+    .book-closed {
+      width: 220px;
+      aspect-ratio: 2/3;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.4,0,0.2,1);
+      cursor: pointer;
+    }
+    @media(min-width:640px){ .book-closed{ width:260px; } }
+    @media(min-width:768px){ .book-closed{ width:300px; } }
+    /* wrapper that gives the whole open book a half-open tilt */
+    .book-open-wrapper {
+      perspective: 1400px;
+      perspective-origin: 50% 40%;
+    }
+    .book-open-spread {
+      width: 95vw;
+      max-width: 860px;
+      aspect-ratio: 4/3;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 28px 64px rgba(0,0,0,0.55), 0 8px 20px rgba(0,0,0,0.3);
+      /* tilt the whole spread like a half-open journal */
+      transform: rotateX(12deg) rotateY(-4deg);
+      transform-style: preserve-3d;
+      transition: transform 0.4s ease;
+    }
+    .page-left, .page-right {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      height: 100%;
+      background-image: url('images/a.jpg');
+      background-size: 200% 100%;
+      background-repeat: no-repeat;
+    }
+    .page-left  { left: 0;  background-position: left center; }
+    .page-right { right: 0; background-position: right center; }
+    .spine-crease {
+      position: absolute;
+      inset-y: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 48px;
+      /* deeper curved spine shadow for the half-open look */
+      background: linear-gradient(to right,
+        rgba(0,0,0,0.04) 0%,
+        rgba(0,0,0,0.28) 35%,
+        rgba(0,0,0,0.38) 50%,
+        rgba(0,0,0,0.28) 65%,
+        rgba(0,0,0,0.04) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .cover-pattern {
+      background: linear-gradient(135deg, #F7B2C4 0%, #F29BB0 50%, #F9C5D1 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .cover-pattern::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px);
+      background-size: 12px 12px;
+    }
+
+    /* ─── Gift 3: Entrance Animations ─── */
+    @keyframes popIn {
+      0%   { transform: scale(0); opacity: 0; }
+      70%  { transform: scale(1.12); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes slideFromTopRight {
+      from { transform: translate(30px, -30px) rotate(2deg); opacity: 0; }
+      to   { transform: translate(0, 0) rotate(2deg); opacity: 1; }
+    }
+    @keyframes slideFromLeft {
+      from { transform: translateX(-60px) rotate(-6deg); opacity: 0; }
+      to   { transform: translateX(0) rotate(-6deg); opacity: 1; }
+    }
+    @keyframes slideFromBottomRight {
+      from { transform: translateY(50px) rotate(6deg); opacity: 0; }
+      to   { transform: translateY(0) rotate(6deg); opacity: 1; }
+    }
+    @keyframes bubbleFloat {
+      0%, 100% { transform: scale(1) translateY(0); }
+      50%      { transform: scale(1) translateY(-6px); }
+    }
+    .g3-bubbles   { animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 150ms both, bubbleFloat 3s ease-in-out 700ms infinite; }
+    .g3-stamp     { animation: slideFromTopRight 0.5s ease-out 300ms both; }
+    .g3-strip     { animation: slideFromLeft 0.55s ease-out 450ms both; }
+    .g3-envelope  { animation: slideFromBottomRight 0.55s ease-out 600ms both; }
+  </style>
+</head>
+
+<body class="font-fredoka">
+
+  <!-- Floating Background Music Toggle (Visible from Page 2 onwards) -->
+  <button
+    id="musicToggleBtn"
+    onclick="toggleMusic()"
+    title="Toggle music"
+    aria-label="Toggle background music"
+    class="fixed top-4 right-4 z-50 bg-white/80 backdrop-blur-sm p-2.5 rounded-full shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer hidden select-none"
+  >
+    <!-- Speaker Playing Icon -->
+    <svg id="soundIconOn" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-coral" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+    </svg>
+    <!-- Speaker Muted Icon -->
+    <svg id="soundIconOff" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+      <path stroke-linecap="round" stroke-linejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+    </svg>
+  </button>
+
+  <!-- Global Persistent Background Audio -->
+  <audio id="bgMusic" loop preload="auto"></audio>
+
+  <!-- ============================================================ -->
+  <!-- PAGE 1: Passcode Lock Screen                                  -->
+  <!-- ============================================================ -->
+  <div id="page1" class="min-h-screen bg-birthday flex items-center justify-center px-4 py-8 md:py-0">
+
+    <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16">
+
+      <!-- ======================= LEFT COLUMN: Polaroid ======================= -->
+      <div class="relative flex-shrink-0">
+
+        <!-- Polaroid Frame -->
+        <div class="relative bg-white p-4 pb-14 shadow-2xl -rotate-3 rounded-sm"
+             style="width: 260px;">
+
+          <!-- Friend's Photo inside the frame -->
+          <img
+            src="images/friends photo.jpg"
+            alt="Friend's photo"
+            class="w-full aspect-square object-cover rounded-sm"
+          />
+        </div>
+
+        <!-- Ribbon Bow — top-right corner, overlapping -->
+        <img
+          src="images/A cute light-blue cartoon ribbon bow.png"
+          alt="Ribbon bow"
+          class="absolute -top-8 -right-8 w-20 md:w-28 rotate-6 drop-shadow-lg float-anim pointer-events-none select-none"
+          style="--float-rot: 6deg;"
+        />
+
+        <!-- Teddy Bear — bottom-left corner, overlapping -->
+        <img
+          src="images/A cute cream-colored cartoon teddy bear sticker wearing a light-blue hat and bow tie.png"
+          alt="Teddy bear sticker"
+          class="absolute -bottom-10 -left-10 w-24 md:w-32 drop-shadow-lg float-anim pointer-events-none select-none"
+          style="--float-rot: 0deg; animation-delay: 1.5s;"
+        />
+      </div>
+
+      <!-- ======================= RIGHT COLUMN: Keypad ======================= -->
+      <div class="flex flex-col items-center">
+
+        <!-- Header -->
+        <h2 class="text-white font-bold text-2xl md:text-3xl mb-6 tracking-wide select-none">
+          Enter a passcode
+        </h2>
+
+        <!-- 4-Digit Display Boxes -->
+        <div id="passcodeDisplay" class="flex gap-3 mb-6">
+          <div class="passcode-box w-12 h-12 md:w-14 md:h-14 bg-transparent border-4 border-white rounded-xl flex items-center justify-center text-2xl font-bold text-white select-none transition-all"></div>
+          <div class="passcode-box w-12 h-12 md:w-14 md:h-14 bg-transparent border-4 border-white rounded-xl flex items-center justify-center text-2xl font-bold text-white select-none transition-all"></div>
+          <div class="passcode-box w-12 h-12 md:w-14 md:h-14 bg-transparent border-4 border-white rounded-xl flex items-center justify-center text-2xl font-bold text-white select-none transition-all"></div>
+          <div class="passcode-box w-12 h-12 md:w-14 md:h-14 bg-transparent border-4 border-white rounded-xl flex items-center justify-center text-2xl font-bold text-white select-none transition-all"></div>
+        </div>
+
+        <!-- Number Pad Grid -->
+        <div class="grid grid-cols-3 gap-4 my-2">
+          <button onclick="handleKey('1')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">1</button>
+          <button onclick="handleKey('2')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">2</button>
+          <button onclick="handleKey('3')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">3</button>
+          <button onclick="handleKey('4')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">4</button>
+          <button onclick="handleKey('5')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">5</button>
+          <button onclick="handleKey('6')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">6</button>
+          <button onclick="handleKey('7')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">7</button>
+          <button onclick="handleKey('8')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">8</button>
+          <button onclick="handleKey('9')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">9</button>
+          <button onclick="handleKey('*')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">*</button>
+          <button onclick="handleKey('0')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">0</button>
+          <button onclick="handleKey('#')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">#</button>
+        </div>
+
+        <!-- NEXT Button Container (hidden by default) -->
+        <div id="nextBtnContainer" class="mt-6 h-12 flex items-center justify-center">
+          <!-- NEXT button is injected here when the code is correct -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PAGE 2: Happy Birthday Celebration Screen                     -->
+  <!-- ============================================================ -->
+  <div id="page2" class="min-h-screen w-full bg-birthday hidden relative overflow-hidden">
+
+    <div class="flex flex-col items-center justify-center min-h-screen relative p-6">
+
+      <!-- Optional Arched "HAPPY BIRTHDAY" Header (toggle via JS flag) -->
+      <div id="archHeader" class="mb-4 select-none hidden">
+        <svg viewBox="0 0 500 120" class="w-72 sm:w-96 md:w-[28rem]" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <path id="archPath" d="M 30,110 Q 250,0 470,110" fill="transparent" />
+          </defs>
+          <!-- Dark outline layer -->
+          <text class="arch-text" fill="none" stroke="#333" stroke-width="5" stroke-linejoin="round">
+            <textPath href="#archPath" startOffset="50%" text-anchor="middle" font-family="'Fredoka', sans-serif">
+              HAPPY BIRTHDAY
+            </textPath>
+          </text>
+          <!-- Pastel gradient fill layer -->
+          <text class="arch-text">
+            <textPath href="#archPath" startOffset="50%" text-anchor="middle" font-family="'Fredoka', sans-serif">
+              <tspan fill="#A3D8F4">HAPPY </tspan><tspan fill="#F4A3C8">BIRTHDAY</tspan>
+            </textPath>
+          </text>
+        </svg>
+      </div>
+
+      <!-- Main Birthday GIF -->
+      <div class="w-full max-w-xs sm:max-w-sm flex flex-col items-center">
+        <div style="width:100%;height:0;padding-bottom:100%;position:relative;">
+          <iframe src="https://giphy.com/embed/CAKpbsAk91a9sT5Nak" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        </div>
+      </div>
+
+      <!-- NEXT Button — centered on mobile, bottom-right on desktop -->
+      <div class="mt-8 md:mt-0 md:absolute md:bottom-12 md:right-16 flex justify-center">
+        <button
+          onclick="goToPage3()"
+          class="p2-fade-in bg-white text-birthday font-bold text-xl md:text-2xl tracking-wider px-12 py-3.5 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none"
+        >
+          NEXT
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PAGE 3: "Gift for you" Selection Hub                          -->
+  <!-- ============================================================ -->
+  <div id="page3" class="min-h-screen w-full bg-birthday hidden relative overflow-hidden">
+
+    <div class="flex flex-col items-center justify-between min-h-screen py-10 md:py-12 px-4 sm:px-6 relative">
+
+      <!-- Top Heading (typewriter) -->
+      <div class="text-center mt-2 md:mt-4">
+        <h1 id="p3Heading" class="text-white text-4xl sm:text-5xl md:text-6xl font-bold tracking-wide select-none drop-shadow-sm"></h1>
+      </div>
+
+      <!-- 3 Gift Boxes -->
+      <div class="grid grid-cols-3 gap-4 sm:gap-10 md:gap-16 max-w-5xl w-full items-center justify-items-center my-auto px-2">
+
+        <div class="flex flex-col items-center justify-center">
+          <div class="gift-float-1">
+            <img src="images/gift box.png" alt="Gift 1" onclick="openGift('gift1')"
+              class="gift-box-img w-28 sm:w-48 md:w-64 lg:w-72 cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center justify-center">
+          <div class="gift-float-2">
+            <img src="images/gift box.png" alt="Gift 2" onclick="openGift('gift2')"
+              class="gift-box-img w-28 sm:w-48 md:w-64 lg:w-72 cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center justify-center">
+          <div class="gift-float-3">
+            <img src="images/gift box.png" alt="Gift 3" onclick="openGift('gift3')"
+              class="gift-box-img w-28 sm:w-48 md:w-64 lg:w-72 cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Subtitle -->
+      <div class="text-center mb-2 md:mb-4">
+        <p class="text-white text-2xl sm:text-3xl md:text-4xl font-semibold lowercase select-none drop-shadow-sm">click any gift to open</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- GIFT 1: Make a Wish — Interactive Birthday Cake               -->
+  <!-- ============================================================ -->
+  <div id="gift1" class="min-h-screen w-full bg-birthday relative overflow-hidden" style="display:none;">
+
+    <div class="relative flex flex-col items-center justify-center min-h-screen px-4 py-10">
+
+      <!-- Heading -->
+      <div id="wishHeading" class="text-center mb-6"></div>
+
+      <!-- Cake SVG centered -->
+      <div class="relative flex flex-col items-center">
+        <div id="smokeLayer" class="absolute inset-0 pointer-events-none" style="z-index:10;"></div>
+
+        <svg id="cakeSvg" viewBox="0 0 340 300" xmlns="http://www.w3.org/2000/svg"
+          class="w-72 sm:w-96 md:w-[28rem]" style="overflow:visible;">
+          <defs>
+            <radialGradient id="glowG" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFE066" stop-opacity="0.7"/>
+              <stop offset="100%" stop-color="#FF6B00" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- 7 candles: x = 50,90,130,170,210,250,290  candle top y=60, body to y=90 -->
+
+          <!-- Candle 1 -->
+          <g id="flame1" class="flame flame-1">
+            <ellipse cx="50" cy="42" rx="10" ry="14" fill="url(#glowG)"/>
+            <ellipse cx="50" cy="47" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
+            <ellipse cx="50" cy="48" rx="3" ry="5" fill="#FFB800"/>
+            <ellipse cx="50" cy="49" rx="1.5" ry="2.5" fill="#FFF8D6"/>
+          </g>
+          <rect x="46" y="56" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
+          <rect x="47" y="58" width="6" height="28" rx="3" fill="#F794A4"/>
+          <rect x="49" y="60" width="2" height="24" rx="1" fill="#FBBDCA" opacity="0.6"/>
+
+          <!-- Candle 2 -->
+          <g id="flame2" class="flame flame-2">
+            <ellipse cx="90" cy="40" rx="10" ry="14" fill="url(#glowG)"/>
+            <ellipse cx="90" cy="45" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
+            <ellipse cx="90" cy="46" rx="3" ry="5" fill="#FFB800"/>
+            <ellipse cx="90" cy="47" rx="1.5" ry="2.5" fill="#FFF8D6"/>
+          </g>
+          <rect x="86" y="54" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
+          <rect x="87" y="56" width="6" height="30" rx="3" fill="#F794A4"/>
+          <rect x="89" y="58" width="2" height="26" rx="1" fill="#FBBDCA" opacity="0.6"/>
+
+          <!-- Candle 3 -->
+          <g id="flame3" class="flame flame-3">
+            <ellipse cx="130" cy="42" rx="10" ry="14" fill="url(#glowG)"/>
+            <ellipse cx="130" cy="47" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
+            <ellipse cx="130" cy="48" rx="3" ry="5" fill="#FFB800"/>
+            <ellipse cx="130" cy="49" rx="1.5" ry="2.5" fill="#FFF8D6"/>
+          </g>
+          <rect x="126" y="56" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
+          <rect x="127" y="58" width="6" height="28" rx="3" fill="#F794A4"/>
+          <rect x="129" y="60" width="2" height="24" rx="1" fill="#FBBDCA" opacity="0.6"/>
+
+          <!-- Candle 4 -->
+          <g id="flame4" class="flame flame-4">
+            <ellipse cx="170" cy="40" rx="10" ry="14" fill="url(#glowG)"/>
+            <ellipse cx="170" cy="45" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
+            <ellipse cx="170" cy="46" rx="3" ry="5" fill="#FFB800"/>
+            <ellipse cx="170" cy="47" rx="1.5" ry="2.5" fill="#FFF8D6"/>
+          </g>
+          <rect x="166" y="54" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
+          <rect x="167" y="56" width="6" height="30" rx="3" fill="#F794A4"/>
+          <rect x="169" y="58" width="2" height="26" rx="1" fill="#FBBDCA" opacity="0.6"/>
+
+          <!-- Candle 5 -->
+          <g id="flame5" class="flame flame-5">
+            <ellipse cx="210" cy="42" rx="10" ry="14" fill="url(#glowG)"/>
+            <ellipse cx="210" cy="47" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
+            <ellipse cx="210" cy="48" rx="3" ry="5" fill="#FFB800"/>
+            <ellipse cx="210" cy="49" rx="1.5" ry="2.5" fill="#FFF8D6"/>
+          </g>
+          <rect x="206" y="56" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
+          <rect x="207" y="58" width="6" height="28" rx="3" fill="#F794A4"/>
+          <rect x="209" y="60" width="2" height="24" rx="1" fill="#FBBDCA" opacity="0.6"/>
+
+          <!-- Candle 6 -->
+          <g id="flame6" class="flame flame-6">
+            <ellipse cx="250" cy="40" rx="10" ry="14" fill="url(#glowG)"/>
+            <ellipse cx="250" cy="45" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
+            <ellipse cx="250" cy="46" rx="3" ry="5" fill="#FFB800"/>
+            <ellipse cx="250" cy="47" rx="1.5" ry="2.5" fill="#FFF8D6"/>
+          </g>
+          <rect x="246" y="54" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
+          <rect x="247" y="56" width="6" height="30" rx="3" fill="#F794A4"/>
+          <rect x="249" y="58" width="2" height="26" rx="1" fill="#FBBDCA" opacity="0.6"/>
+
+          <!-- Candle 7 -->
+          <g id="flame7" class="flame flame-7">
+            <ellipse cx="290" cy="42" rx="10" ry="14" fill="url(#glowG)"/>
+            <ellipse cx="290" cy="47" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
+            <ellipse cx="290" cy="48" rx="3" ry="5" fill="#FFB800"/>
+            <ellipse cx="290" cy="49" rx="1.5" ry="2.5" fill="#FFF8D6"/>
+          </g>
+          <rect x="286" y="56" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
+          <rect x="287" y="58" width="6" height="28" rx="3" fill="#F794A4"/>
+          <rect x="289" y="60" width="2" height="24" rx="1" fill="#FBBDCA" opacity="0.6"/>
+
+          <!-- UPPER TIER -->
+          <rect x="30" y="86" width="280" height="80" rx="12" fill="#A6E3F5"/>
+          <rect x="30" y="86" width="280" height="18" rx="9" fill="#EAE6FF"/>
+          <path d="M30,104 Q50,118 70,104 Q90,118 110,104 Q130,118 150,104 Q170,118 190,104 Q210,118 230,104 Q250,118 270,104 Q290,118 310,104" fill="none" stroke="#EAE6FF" stroke-width="12" stroke-linecap="round"/>
+
+          <!-- LOWER TIER -->
+          <rect x="0" y="166" width="340" height="100" rx="14" fill="#A6E3F5"/>
+          <rect x="0" y="166" width="340" height="20" rx="10" fill="#EAE6FF"/>
+          <path d="M0,186 Q24,202 48,186 Q72,202 96,186 Q120,202 144,186 Q168,202 192,186 Q216,202 240,186 Q264,202 288,186 Q312,202 336,186" fill="none" stroke="#EAE6FF" stroke-width="14" stroke-linecap="round"/>
+
+          <!-- CAKE BASE -->
+          <rect x="0" y="266" width="340" height="20" rx="8" fill="#D4CFFF"/>
+          <rect x="0" y="278" width="340" height="8" rx="4" fill="#B8B0FF"/>
+        </svg>
+      </div>
+
+      <!-- BLOW button directly below cake -->
+      <div id="blowBtnWrap" class="mt-6">
+        <button onclick="blowCandles()"
+          class="bg-white text-birthday font-bold text-xl md:text-2xl tracking-wider px-12 py-3 rounded-full shadow-xl border-2 border-white/40 hover:scale-105 active:scale-95 transition-all cursor-pointer select-none">
+          &#128065; BLOW
+        </button>
+      </div>
+
+    </div>
+
+    <!-- BACK button (shown after blow) -->
+    <button id="wishBackBtn" onclick="backToGifts('gift1')"
+      class="fixed bottom-6 right-6 z-30 bg-black text-white font-bold text-lg px-10 py-3 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer select-none"
+      style="display:none;opacity:0;">BACK</button>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- GIFT 2: 3D Scrapbook Flipbook                                 -->
+  <!-- ============================================================ -->
+  <div id="gift2" class="min-h-screen w-full bg-birthday relative overflow-hidden" style="display:none;">
+
+    <div class="flex flex-col items-center min-h-screen py-8 px-4 relative" style="z-index:2;">
+
+      <!-- Header -->
+      <div class="text-center mb-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-1 select-none">Birthday</h2>
+        <p class="text-sm text-white/80 select-none">&#128214; 1 Page</p>
+      </div>
+
+      <!-- Book stage -->
+      <div class="flex items-center justify-center w-full my-auto" style="min-height:60vh;">
+
+        <!-- Left arrow -->
+        <button onclick="toggleBook()" class="flex-shrink-0 mr-3 sm:mr-5 w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold cursor-pointer select-none" style="background:rgba(255,255,255,0.2);backdrop-filter:blur(4px);">&lt;</button>
+
+        <!-- Book scene -->
+        <div class="book-scene flex items-center justify-center">
+
+          <!-- CLOSED COVER -->
+          <div id="bookClosed" class="book-closed rounded-r-2xl shadow-2xl overflow-hidden" onclick="toggleBook()">
+            <!-- Spine strip -->
+            <div style="position:absolute;left:0;top:0;bottom:0;width:28px;background:#F4979C;border-right:1px solid rgba(0,0,0,0.1);z-index:1;"></div>
+            <!-- Cover body -->
+            <div class="cover-pattern w-full h-full" style="padding-left:28px;">
+              <!-- Composition label -->
+              <div style="position:absolute;left:50%;top:22%;transform:translateX(-50%);width:62%;background:white;border-radius:8px;padding:10px 12px;border:2px solid #F4979C;text-align:center;">
+                <div style="font-size:0.6rem;letter-spacing:0.18em;color:#E07090;font-weight:700;font-family:'Fredoka',sans-serif;">COMPOSITION</div>
+                <div style="height:1px;background:#F4979C;margin:5px 0;"></div>
+                <div style="height:1px;background:#F4979C;margin:4px 0;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- OPEN SPREAD -->
+          <div id="bookOpen" class="book-open-wrapper" style="display:none;">
+            <div class="book-open-spread">
+              <div class="page-left"></div>
+              <div class="page-right"></div>
+              <div class="spine-crease"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right arrow -->
+        <button onclick="toggleBook()" class="flex-shrink-0 ml-3 sm:ml-5 w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold cursor-pointer select-none" style="background:rgba(255,255,255,0.2);backdrop-filter:blur(4px);">&gt;</button>
+
+      </div>
+
+      <!-- Bottom icon row -->
+      <div class="flex gap-4 mt-4 mb-2">
+        <button onclick="launchConfetti()" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center text-lg backdrop-blur-sm transition-all" title="Celebrate!">&#127881;</button>
+        <button onclick="launchConfetti()" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center text-lg backdrop-blur-sm transition-all">&#10024;</button>
+        <button onclick="launchConfetti()" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center text-lg backdrop-blur-sm transition-all">&#128149;</button>
+        <button onclick="launchConfetti()" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center text-lg backdrop-blur-sm transition-all">&#43;</button>
+      </div>
+
+    </div>
+
+    <!-- BACK button -->
+    <button onclick="backToGifts('gift2')"
+      class="fixed bottom-6 right-6 z-30 bg-black text-white font-bold text-lg px-10 py-3 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer select-none">BACK</button>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- GIFT 3: Envelope Letter & Photo Strip                        -->
+  <!-- ============================================================ -->
+  <div id="gift3" class="min-h-screen w-full bg-birthday overflow-x-hidden" style="display:none;">
+    <div class="flex flex-col items-center justify-center min-h-screen p-6 md:p-12 relative">
+
+      <!-- Collage Container -->
+      <div class="relative w-full max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0 my-auto py-8">
+
+        <!-- Chat Bubbles (top-center) -->
+        <img
+          src="images/bubbles.png"
+          alt="Chat bubbles"
+          class="g3-bubbles md:absolute md:-top-8 md:left-[38%] z-30 w-36 sm:w-44 md:w-52 drop-shadow-md select-none pointer-events-none"
+          onerror="this.style.display='none'; document.getElementById('g3BubblesFallback').style.display='flex';"
+        />
+        <!-- Fallback bubbles -->
+        <div id="g3BubblesFallback" class="g3-bubbles md:absolute md:-top-8 md:left-[38%] z-30 w-36 sm:w-44 md:w-52 flex-col items-start gap-1 select-none pointer-events-none" style="display:none;">
+          <div style="background:#B8E2F8;border:2px solid #2B6CB0;border-radius:12px 12px 12px 0;padding:6px 12px;font-size:0.75rem;font-weight:700;color:#1a365d;">Love you ♡ friend greeting</div>
+          <div style="background:white;border:2px solid #ccc;border-radius:12px 12px 0 12px;padding:6px 12px;font-size:0.75rem;font-weight:700;color:#555;">♡♡♡♡</div>
+        </div>
+
+        <!-- Stamp (top-right) -->
+        <img
+          src="images/stamp.png"
+          alt="Vintage stamp"
+          class="g3-stamp md:absolute md:-top-10 md:right-[15%] z-20 w-20 sm:w-24 md:w-28 drop-shadow-md hover:rotate-6 transition-transform cursor-pointer select-none"
+        />
+
+        <!-- Photo Strip (left) -->
+        <img
+          src="images/photostrip.png"
+          alt="Photo booth strip"
+          onclick="openLightbox('images/photostrip.png')"
+          class="g3-strip relative z-20 w-44 sm:w-52 md:w-60 shadow-2xl hover:rotate-0 hover:scale-105 transition-all duration-500 cursor-pointer select-none"
+        />
+
+        <!-- Envelope Letter (right) -->
+        <img
+          src="images/envelope-letter.png"
+          alt="Envelope letter"
+          onclick="openLightbox('images/envelope-letter.png')"
+          class="g3-envelope relative z-10 md:-ml-6 w-72 sm:w-80 md:w-[420px] drop-shadow-2xl hover:rotate-2 hover:scale-105 transition-all duration-500 cursor-pointer select-none"
+        />
+
+      </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="g3Lightbox" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4" style="display:none;">
+      <img id="g3LightboxImg" src="" alt="Zoomed view" class="max-w-[92vw] max-h-[90vh] rounded-2xl shadow-2xl object-contain" />
+    </div>
+
+    <!-- BACK button -->
+    <button onclick="backToGifts('gift3')"
+      class="fixed bottom-6 right-6 md:bottom-10 md:right-12 z-40 bg-black text-white font-bold text-lg md:text-2xl px-10 py-3 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer select-none">BACK</button>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- JAVASCRIPT: Passcode Logic                                    -->
+  <!-- ============================================================ -->
+  <script>
+    // ─────────────────────────────────────────────
+    // 🔐  CONFIGURABLE PASSCODE — change this!
+    // ─────────────────────────────────────────────
+    const TARGET_PASSCODE = "2816";
+
+    // ─────────────────────────────────────────────
+    // 🎂  PAGE 2 CONFIG
+    // ─────────────────────────────────────────────
+    // Birthday GIF — swap in your own URL or local path:
+    const BIRTHDAY_GIF_URL = "https://media.giphy.com/media/IlexKftDMJ0WyBv8Zt/giphy.gif";
+
+    // Set to true to show the arched "HAPPY BIRTHDAY" header above the GIFs
+    const showCustomHeader = false;
+
+    // ─────────────────────────────────────────────
+    // 🎵  BACKGROUND MUSIC CONFIG (Plays from Page 2 onwards)
+    // ─────────────────────────────────────────────
+    const BG_MUSIC_PATH = "./audio/birthday-song.m4a";
+
+    // ─────────────────────────────────────────────
+    // 🎂  GIFT 1 CONFIG
+    // ─────────────────────────────────────────────
+    const WISH_MESSAGE = "happy birthday\nbestie";
+
+    let isBlown = false;
+
+    // ─────────────────────────────────────────────
+    // 📖  GIFT 2 CONFIG
+    // ─────────────────────────────────────────────
+    const SCRAPBOOK_IMG = './images/a.png';
+    let isBookOpen = false;
+
+    // ─────────────────────────────────────────────
+    // 🎁  PAGE 3 CONFIG: GIFT BOX IMAGE
+    // ─────────────────────────────────────────────
+    const GIFT_BOX_IMG = "images/gift box.png";
+
+    function resetGift2() {
+      isBookOpen = false;
+      const closed = document.getElementById('bookClosed');
+      const open   = document.getElementById('bookOpen');
+      if (closed) closed.style.display = 'block';
+      if (open)   open.style.display   = 'none';
+    }
+
+    function toggleBook() {
+      isBookOpen = !isBookOpen;
+      const closed = document.getElementById('bookClosed');
+      const open   = document.getElementById('bookOpen');
+      if (isBookOpen) {
+        closed.style.transition = 'opacity 0.35s ease';
+        closed.style.opacity = '0';
+        setTimeout(() => {
+          closed.style.display = 'none';
+          open.style.display = 'block';
+          open.style.opacity = '0';
+          open.style.transition = 'opacity 0.35s ease';
+          void open.offsetWidth;
+          open.style.opacity = '1';
+        }, 350);
+      } else {
+        open.style.transition = 'opacity 0.35s ease';
+        open.style.opacity = '0';
+        setTimeout(() => {
+          open.style.display = 'none';
+          closed.style.display = 'block';
+          closed.style.opacity = '0';
+          closed.style.transition = 'opacity 0.35s ease';
+          void closed.offsetWidth;
+          closed.style.opacity = '1';
+        }, 350);
+      }
+    }
+
+    function resetGift1() {
+      isBlown = false;
+      const heading = document.getElementById('wishHeading');
+      heading.innerHTML = '<h1 id="wishText" class="text-4xl sm:text-5xl md:text-6xl font-bold text-white drop-shadow-sm select-none leading-tight"></h1>';
+      setTimeout(() => typewrite(document.getElementById('wishText'), 'Make a wish 💫', 70), 100);
+      for (let i = 1; i <= 7; i++) {
+        const f = document.getElementById('flame' + i);
+        if (f) { f.style.transition = ''; f.style.transform = ''; f.style.opacity = ''; }
+      }
+      const blowWrap = document.getElementById('blowBtnWrap');
+      if (blowWrap) blowWrap.style.display = 'flex';
+      const backBtn = document.getElementById('wishBackBtn');
+      backBtn.style.display = 'none';
+      backBtn.style.opacity = '0';
+    }
+
+    function blowCandles() {
+      if (isBlown) return;
+      isBlown = true;
+
+      // Extinguish all 7 flames
+      for (let i = 1; i <= 7; i++) {
+        const f = document.getElementById('flame' + i);
+        if (f) {
+          f.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+          f.style.transformOrigin = 'center bottom';
+          f.style.transform = 'scale(0)';
+          f.style.opacity = '0';
+        }
+      }
+
+      // Hide BLOW button
+      document.getElementById('blowBtnWrap').style.display = 'none';
+
+      // Typewrite wish message
+      setTimeout(() => {
+        const lines = WISH_MESSAGE.split('\n');
+        const wrap = document.createElement('div');
+        wrap.className = 'wish-appear text-center';
+        document.getElementById('wishHeading').innerHTML = '';
+        document.getElementById('wishHeading').appendChild(wrap);
+        let lineIndex = 0;
+        function typeLine() {
+          if (lineIndex >= lines.length) return;
+          const p = document.createElement('p');
+          p.className = 'text-4xl sm:text-5xl md:text-6xl font-bold text-white drop-shadow-sm select-none leading-tight lowercase';
+          wrap.appendChild(p);
+          let ci = 0;
+          const t = setInterval(() => {
+            p.textContent += lines[lineIndex][ci++];
+            if (ci >= lines[lineIndex].length) { clearInterval(t); lineIndex++; setTimeout(typeLine, 200); }
+          }, 60);
+        }
+        typeLine();
+      }, 400);
+
+      // Show BACK button
+      setTimeout(() => {
+        const backBtn = document.getElementById('wishBackBtn');
+        backBtn.style.display = 'block';
+        void backBtn.offsetWidth;
+        backBtn.style.transition = 'opacity 0.5s ease';
+        backBtn.style.opacity = '1';
+      }, 800);
+    }
+
+    // ─── Audio State & Elements ───
+    const bgAudio = document.getElementById("bgMusic");
+    let isMusicPlaying = false;
+    let musicStarted = false;
+
+    // ─── State ───
+    let currentInput = "";
+    let isLocked = false; // prevents input during shake animation
+
+    // ─── DOM References ───
+    const boxes = document.querySelectorAll(".passcode-box");
+    const nextBtnContainer = document.getElementById("nextBtnContainer");
+
+    // ─── Update the display boxes ───
+    function updateDisplay() {
+      boxes.forEach((box, i) => {
+        box.textContent = currentInput[i] || "";
+      });
+    }
+
+    // ─── Handle a key press (from keypad or keyboard) ───
+    function handleKey(char) {
+      if (isLocked) return;
+
+      // If a NEXT button is showing and user starts typing, clear it
+      if (nextBtnContainer.innerHTML !== "") {
+        nextBtnContainer.innerHTML = "";
+      }
+
+      if (currentInput.length < 4) {
+        currentInput += char;
+        updateDisplay();
+      }
+
+      // Check when 4 digits entered
+      if (currentInput.length === 4) {
+        validate();
+      }
+    }
+
+    // ─── Delete last digit ───
+    function handleBackspace() {
+      if (isLocked) return;
+      if (nextBtnContainer.innerHTML !== "") {
+        nextBtnContainer.innerHTML = "";
+      }
+      currentInput = currentInput.slice(0, -1);
+      updateDisplay();
+    }
+
+    // ─── Validate the entered passcode ───
+    function validate() {
+      if (currentInput === TARGET_PASSCODE) {
+        // ✅ Correct — show the NEXT button
+        showNextButton();
+      } else {
+        // ❌ Wrong — shake & clear
+        triggerShake();
+      }
+    }
+
+    // ─── Show the NEXT button with a fade-in animation ───
+    function showNextButton() {
+      nextBtnContainer.innerHTML = `
+        <button
+          onclick="goToPage2()"
+          class="fade-in-up bg-white text-birthday font-bold text-xl px-12 py-2.5 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer select-none"
+        >
+          NEXT
+        </button>
+      `;
+    }
+
+    // ─── Background Music Control ───
+    function typewrite(el, text, speed) {
+      el.textContent = '';
+      let i = 0;
+      const timer = setInterval(() => {
+        el.textContent += text[i++];
+        if (i >= text.length) clearInterval(timer);
+      }, speed || 60);
+    }
+
+    function startBackgroundMusic() {
+      if (!musicStarted) {
+        bgAudio.src = BG_MUSIC_PATH;
+        bgAudio.loop = true;
+        bgAudio.volume = 1;
+        musicStarted = true;
+        bgAudio.addEventListener('loadedmetadata', () => { bgAudio.currentTime = 52; }, { once: true });
+      }
+      bgAudio.play().then(() => {
+        isMusicPlaying = true;
+        updateMusicButtonUI();
+      }).catch(err => {
+        console.log("Audio autoplay / file status:", err);
+        isMusicPlaying = false;
+        updateMusicButtonUI();
+      });
+
+      // Show floating mute button from Page 2 onwards
+      const musicBtn = document.getElementById("musicToggleBtn");
+      if (musicBtn) {
+        musicBtn.classList.remove("hidden");
+      }
+    }
+
+    function toggleMusic() {
+      if (!musicStarted) {
+        bgAudio.src = BG_MUSIC_PATH;
+        bgAudio.loop = true;
+        musicStarted = true;
+      }
+      if (bgAudio.paused) {
+        bgAudio.play().then(() => {
+          isMusicPlaying = true;
+          updateMusicButtonUI();
+        }).catch(err => {
+          console.log("Audio play error:", err);
+        });
+      } else {
+        bgAudio.pause();
+        isMusicPlaying = false;
+        updateMusicButtonUI();
+      }
+    }
+
+    function updateMusicButtonUI() {
+      const iconOn = document.getElementById("soundIconOn");
+      const iconOff = document.getElementById("soundIconOff");
+      if (!iconOn || !iconOff) return;
+      if (!bgAudio.paused && isMusicPlaying) {
+        iconOn.classList.remove("hidden");
+        iconOff.classList.add("hidden");
+      } else {
+        iconOn.classList.add("hidden");
+        iconOff.classList.remove("hidden");
+      }
+    }
+
+    // ─── Navigate to Page 2 ───
+    function goToPage2() {
+      // 🎵 Trigger continuous background music on user action
+      startBackgroundMusic();
+
+      const page1 = document.getElementById("page1");
+      const page2 = document.getElementById("page2");
+
+      // Smooth fade-out of Page 1
+      page1.style.transition = "opacity 0.5s ease";
+      page1.style.opacity = "0";
+
+      setTimeout(() => {
+        page1.classList.add("hidden");
+        page2.classList.remove("hidden");
+        page2.style.opacity = "0";
+        page2.style.transition = "opacity 0.6s ease";
+        // Force reflow
+        void page2.offsetWidth;
+        page2.style.opacity = "1";
+
+        // Show arched header if flag is on
+        if (showCustomHeader) {
+          document.getElementById("archHeader").classList.remove("hidden");
+        }
+
+        // 🎊 Fire pastel confetti burst!
+        launchConfetti();
+      }, 500);
+    }
+
+    // ─── Pastel Confetti Celebration ───
+    function launchConfetti() {
+      const pastelColors = [
+        "#FFB3BA", // pastel pink
+        "#FFDFBA", // pastel peach
+        "#FFFFBA", // pastel yellow
+        "#BAFFC9", // pastel green
+        "#BAE1FF", // pastel blue
+        "#E8BAFF", // pastel purple
+        "#F4A3C8", // rose pink
+        "#A3D8F4", // sky blue
+      ];
+
+      // Big initial burst — left side
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { x: 0.15, y: 0.6 },
+        colors: pastelColors,
+        shapes: ["circle", "square"],
+        scalar: 1.1,
+        gravity: 0.8,
+        ticks: 200,
+      });
+
+      // Big initial burst — right side
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { x: 0.85, y: 0.6 },
+        colors: pastelColors,
+        shapes: ["circle", "square"],
+        scalar: 1.1,
+        gravity: 0.8,
+        ticks: 200,
+      });
+
+      // Delayed center burst
+      setTimeout(() => {
+        confetti({
+          particleCount: 60,
+          spread: 100,
+          origin: { x: 0.5, y: 0.4 },
+          colors: pastelColors,
+          shapes: ["circle"],
+          scalar: 1.3,
+          gravity: 0.6,
+          ticks: 250,
+        });
+      }, 400);
+
+      // Extra sparkle burst
+      setTimeout(() => {
+        confetti({
+          particleCount: 40,
+          spread: 120,
+          origin: { x: 0.5, y: 0.5 },
+          colors: pastelColors,
+          shapes: ["circle", "square"],
+          scalar: 0.9,
+          gravity: 1,
+          ticks: 180,
+        });
+      }, 900);
+    }
+
+    // ─── Navigate to Page 3 ───
+    function goToPage3() {
+      const page2 = document.getElementById('page2');
+      const page3 = document.getElementById('page3');
+      hidePage(page2, () => {
+        showPage(page3, 'block');
+        setTimeout(() => typewrite(document.getElementById('p3Heading'), 'Gift for you 🎁', 70), 200);
+      });
+    }
+
+    // ─── Show a page div (handles hidden + flex conflict) ───
+    function showPage(el, displayType) {
+      el.style.display = displayType || "block";
+      el.style.opacity = "0";
+      el.style.transition = "opacity 0.4s ease";
+      void el.offsetWidth;
+      el.style.opacity = "1";
+    }
+
+    function hidePage(el, cb) {
+      el.style.transition = "opacity 0.4s ease";
+      el.style.opacity = "0";
+      setTimeout(() => {
+        el.style.display = "none";
+        if (cb) cb();
+      }, 400);
+    }
+
+    // ─── Open a Gift from Page 3 ───
+    function openGift(giftId) {
+      const page3 = document.getElementById("page3");
+      const giftEl = document.getElementById(giftId);
+      if (!page3 || !giftEl) return;
+      hidePage(page3, () => {
+        if (giftId === 'gift1') resetGift1();
+        if (giftId === 'gift2') resetGift2();
+        if (giftId === 'gift3') resetGift3();
+        showPage(giftEl, 'block');
+      });
+    }
+
+    function backToGifts(giftId) {
+      const page3 = document.getElementById('page3');
+      const giftEl = document.getElementById(giftId);
+      if (!page3 || !giftEl) return;
+      hidePage(giftEl, () => {
+        showPage(page3, 'block');
+        setTimeout(() => typewrite(document.getElementById('p3Heading'), 'Gift for you 🎁', 70), 200);
+      });
+    }
+
+    // ─── Gift 3 Asset Config ───
+    const GIFT3_ASSETS = {
+      photostrip: "./images/photostrip.png",
+      envelopeLetter: "./images/envelope-letter.png",
+      bubbles: "./images/bubbles.png",
+      stamp: "./images/stamp.png"
+    };
+
+    function resetGift3() {
+      // Re-trigger entrance animations by cloning each element
+      ['g3-bubbles','g3-stamp','g3-strip','g3-envelope'].forEach(cls => {
+        document.querySelectorAll('#gift3 .' + cls).forEach(el => {
+          el.style.animation = 'none';
+          void el.offsetWidth;
+          el.style.animation = '';
+        });
+      });
+    }
+
+    function openLightbox(src) {
+      const lb = document.getElementById('g3Lightbox');
+      document.getElementById('g3LightboxImg').src = src;
+      lb.style.display = 'flex';
+    }
+
+    function closeLightbox() {
+      document.getElementById('g3Lightbox').style.display = 'none';
+    }
+
+    // ─── Initialize Gift Box Images ───
+    document.querySelectorAll(".gift-box-img").forEach(img => {
+      img.src = GIFT_BOX_IMG;
+    });
+
+    // ─── Shake animation for wrong passcode ───
+    function triggerShake() {
+      isLocked = true;
+      const display = document.getElementById("passcodeDisplay");
+      display.classList.add("shake");
+
+      setTimeout(() => {
+        display.classList.remove("shake");
+        currentInput = "";
+        updateDisplay();
+        isLocked = false;
+      }, 500);
+    }
+
+    // ─── Keyboard Support ───
+    document.addEventListener("keydown", (e) => {
+      if (e.key >= "0" && e.key <= "9") {
+        handleKey(e.key);
+      } else if (e.key === "Backspace") {
+        handleBackspace();
+      }
+    });
+  </script>
+
+</body>
+</html>
