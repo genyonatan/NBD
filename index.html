@@ -380,7 +380,7 @@
           <button onclick="handleKey('7')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">7</button>
           <button onclick="handleKey('8')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">8</button>
           <button onclick="handleKey('9')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">9</button>
-          <button onclick="handleKey('*')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">*</button>
+          <button id="clearBtn" onclick="clearInput()" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-xl font-bold shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer select-none">CLR</button>
           <button onclick="handleKey('0')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">0</button>
           <button onclick="handleKey('#')" class="keypad-btn w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-birthday text-2xl font-bold shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer select-none">#</button>
         </div>
@@ -455,27 +455,21 @@
       </div>
 
       <!-- 3 Gift Boxes -->
-      <div class="grid grid-cols-3 gap-3 sm:gap-10 md:gap-16 max-w-5xl w-full items-center justify-items-center my-auto px-3">
+      <div class="flex flex-col sm:flex-row gap-8 sm:gap-10 md:gap-16 max-w-5xl w-full items-center justify-center my-auto px-2">
 
-        <div class="flex flex-col items-center justify-center">
-          <div class="gift-float-1">
-            <img src="images/gift box.png" alt="Gift 1" onclick="openGift('gift1')"
-              class="gift-box-img w-[28vw] sm:w-48 md:w-64 lg:w-72 cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
-          </div>
+        <div class="gift-float-1">
+          <img src="images/Giftbox.svg" alt="Gift 1" onclick="openGift('gift1')"
+            class="w-36 sm:w-48 md:w-64 lg:w-72 cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
         </div>
 
-        <div class="flex flex-col items-center justify-center">
-          <div class="gift-float-2">
-            <img src="images/gift box.png" alt="Gift 2" onclick="openGift('gift2')"
-              class="gift-box-img w-[28vw] sm:w-48 md:w-64 lg:w-72 cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
-          </div>
+        <div class="gift-float-2">
+          <img src="images/Giftbox.svg" alt="Gift 2" onclick="openGift('gift2')"
+            class="w-36 sm:w-48 md:w-64 lg:w-72 cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
         </div>
 
-        <div class="flex flex-col items-center justify-center">
-          <div class="gift-float-3">
-            <img src="images/gift box.png" alt="Gift 3" onclick="openGift('gift3')"
-              class="gift-box-img w-[28vw] sm:w-48 md:w-64 lg:w-72 cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
-          </div>
+        <div class="gift-float-3">
+          <img src="images/Giftbox.svg" alt="Gift 3" onclick="openGift('gift3')"
+            class="w-36 sm:w-48 md:w-64 lg:w-72 cursor-pointer hover:scale-110 hover:-rotate-3 active:scale-95 transition-all duration-300 drop-shadow-xl select-none" />
         </div>
 
       </div>
@@ -502,107 +496,123 @@
       <div class="relative flex flex-col items-center">
         <div id="smokeLayer" class="absolute inset-0 pointer-events-none" style="z-index:10;"></div>
 
-        <svg id="cakeSvg" viewBox="0 0 340 300" xmlns="http://www.w3.org/2000/svg"
+        <svg id="cakeSvg" viewBox="0 0 320 310" xmlns="http://www.w3.org/2000/svg"
           class="w-72 sm:w-96 md:w-[28rem]" style="overflow:visible;">
           <defs>
-            <radialGradient id="glowG" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#FFE066" stop-opacity="0.7"/>
-              <stop offset="100%" stop-color="#FF6B00" stop-opacity="0"/>
+            <!-- Cake body gradients -->
+            <linearGradient id="tier1Grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FADADD"/>
+              <stop offset="100%" stop-color="#F4A7B9"/>
+            </linearGradient>
+            <linearGradient id="tier2Grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#F9C0CB"/>
+              <stop offset="100%" stop-color="#E8839A"/>
+            </linearGradient>
+            <linearGradient id="plateGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFF0F3"/>
+              <stop offset="100%" stop-color="#F9D0DA"/>
+            </linearGradient>
+            <!-- Frosting white -->
+            <linearGradient id="frostGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="100%" stop-color="#FFE8EE"/>
+            </linearGradient>
+            <!-- Flame glow -->
+            <radialGradient id="glowG" cx="50%" cy="70%" r="50%">
+              <stop offset="0%" stop-color="#FFE566" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#FF8C00" stop-opacity="0"/>
             </radialGradient>
+            <!-- Drop shadow filter -->
+            <filter id="softShadow" x="-10%" y="-10%" width="120%" height="130%">
+              <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#C0607A" flood-opacity="0.25"/>
+            </filter>
           </defs>
 
-          <!-- 7 candles: x = 50,90,130,170,210,250,290  candle top y=60, body to y=90 -->
+          <!-- ── PLATE ── -->
+          <ellipse cx="160" cy="295" rx="130" ry="14" fill="url(#plateGrad)" filter="url(#softShadow)"/>
+          <ellipse cx="160" cy="291" rx="130" ry="10" fill="#FFF0F3"/>
+          <ellipse cx="160" cy="289" rx="126" ry="7" fill="#FFE0E8"/>
 
-          <!-- Candle 1 -->
+          <!-- ── BOTTOM TIER ── -->
+          <!-- Body -->
+          <rect x="30" y="195" width="260" height="90" rx="14" fill="url(#tier2Grad)" filter="url(#softShadow)"/>
+          <!-- Side shine -->
+          <rect x="38" y="200" width="12" height="80" rx="6" fill="white" opacity="0.18"/>
+          <!-- Frosting drip top -->
+          <path d="M30,195 Q50,178 70,195 Q90,178 110,195 Q130,178 150,195 Q170,178 190,195 Q210,178 230,195 Q250,178 270,195 Q290,178 290,195" fill="url(#frostGrad)" stroke="none"/>
+          <rect x="30" y="192" width="260" height="10" rx="5" fill="url(#frostGrad)"/>
+          <!-- Polka dots -->
+          <circle cx="70" cy="230" r="6" fill="white" opacity="0.35"/>
+          <circle cx="110" cy="248" r="5" fill="white" opacity="0.3"/>
+          <circle cx="155" cy="225" r="7" fill="white" opacity="0.3"/>
+          <circle cx="200" cy="245" r="5" fill="white" opacity="0.3"/>
+          <circle cx="245" cy="228" r="6" fill="white" opacity="0.35"/>
+          <!-- Bottom edge -->
+          <rect x="30" y="278" width="260" height="7" rx="3.5" fill="#D96080" opacity="0.4"/>
+
+          <!-- ── TOP TIER ── -->
+          <!-- Body -->
+          <rect x="75" y="110" width="170" height="88" rx="12" fill="url(#tier1Grad)" filter="url(#softShadow)"/>
+          <!-- Side shine -->
+          <rect x="83" y="116" width="9" height="76" rx="4.5" fill="white" opacity="0.2"/>
+          <!-- Frosting drip top -->
+          <path d="M75,110 Q90,96 105,110 Q120,96 135,110 Q150,96 165,110 Q180,96 195,110 Q210,96 225,110 Q240,96 245,110" fill="url(#frostGrad)" stroke="none"/>
+          <rect x="75" y="107" width="170" height="10" rx="5" fill="url(#frostGrad)"/>
+          <!-- Polka dots -->
+          <circle cx="108" cy="140" r="5" fill="white" opacity="0.35"/>
+          <circle cx="140" cy="158" r="4" fill="white" opacity="0.3"/>
+          <circle cx="175" cy="138" r="6" fill="white" opacity="0.3"/>
+          <circle cx="210" cy="155" r="4" fill="white" opacity="0.3"/>
+          <!-- Bottom edge -->
+          <rect x="75" y="191" width="170" height="6" rx="3" fill="#D96080" opacity="0.35"/>
+
+          <!-- ── DECORATIVE BORDER RIBBON (bottom tier) ── -->
+          <rect x="30" y="255" width="260" height="14" rx="7" fill="#F472A0" opacity="0.55"/>
+          <rect x="30" y="257" width="260" height="4" rx="2" fill="white" opacity="0.3"/>
+
+          <!-- ── DECORATIVE BORDER RIBBON (top tier) ── -->
+          <rect x="75" y="172" width="170" height="12" rx="6" fill="#F472A0" opacity="0.5"/>
+          <rect x="75" y="174" width="170" height="3" rx="1.5" fill="white" opacity="0.3"/>
+
+          <!-- ── 3 CANDLES ── -->
+          <!-- Candle 1 (left) x=115 -->
+          <rect x="110" y="72" width="10" height="38" rx="5" fill="#A78BFA"/>
+          <rect x="112" y="74" width="3" height="32" rx="1.5" fill="white" opacity="0.3"/>
+          <rect x="110" y="107" width="10" height="4" rx="2" fill="#7C5CBF"/>
           <g id="flame1" class="flame flame-1">
-            <ellipse cx="50" cy="42" rx="10" ry="14" fill="url(#glowG)"/>
-            <ellipse cx="50" cy="47" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
-            <ellipse cx="50" cy="48" rx="3" ry="5" fill="#FFB800"/>
-            <ellipse cx="50" cy="49" rx="1.5" ry="2.5" fill="#FFF8D6"/>
+            <ellipse cx="115" cy="62" rx="9" ry="13" fill="url(#glowG)"/>
+            <path d="M115,74 C112,68 109,62 113,55 C114,52 115,49 115,46 C115,49 116,52 117,55 C121,62 118,68 115,74Z" fill="#FF8C00"/>
+            <path d="M115,72 C113,67 111,63 114,57 C115,54 115,52 115,50 C115,52 115,54 116,57 C119,63 117,67 115,72Z" fill="#FFD700"/>
+            <path d="M115,70 C114,66 113,63 115,59 C115,57 115,56 115,55 C115,56 115,57 115,59 C117,63 116,66 115,70Z" fill="#FFF8DC"/>
           </g>
-          <rect x="46" y="56" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
-          <rect x="47" y="58" width="6" height="28" rx="3" fill="#F794A4"/>
-          <rect x="49" y="60" width="2" height="24" rx="1" fill="#FBBDCA" opacity="0.6"/>
 
-          <!-- Candle 2 -->
+          <!-- Candle 2 (center) x=160 -->
+          <rect x="155" y="68" width="10" height="42" rx="5" fill="#FB923C"/>
+          <rect x="157" y="70" width="3" height="36" rx="1.5" fill="white" opacity="0.3"/>
+          <rect x="155" y="107" width="10" height="4" rx="2" fill="#C2600A"/>
           <g id="flame2" class="flame flame-2">
-            <ellipse cx="90" cy="40" rx="10" ry="14" fill="url(#glowG)"/>
-            <ellipse cx="90" cy="45" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
-            <ellipse cx="90" cy="46" rx="3" ry="5" fill="#FFB800"/>
-            <ellipse cx="90" cy="47" rx="1.5" ry="2.5" fill="#FFF8D6"/>
+            <ellipse cx="160" cy="57" rx="9" ry="13" fill="url(#glowG)"/>
+            <path d="M160,70 C157,64 154,58 158,51 C159,48 160,45 160,42 C160,45 161,48 162,51 C166,58 163,64 160,70Z" fill="#FF8C00"/>
+            <path d="M160,68 C158,63 156,59 159,53 C160,50 160,48 160,46 C160,48 160,50 161,53 C164,59 162,63 160,68Z" fill="#FFD700"/>
+            <path d="M160,66 C159,62 158,59 160,55 C160,53 160,52 160,51 C160,52 160,53 160,55 C162,59 161,62 160,66Z" fill="#FFF8DC"/>
           </g>
-          <rect x="86" y="54" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
-          <rect x="87" y="56" width="6" height="30" rx="3" fill="#F794A4"/>
-          <rect x="89" y="58" width="2" height="26" rx="1" fill="#FBBDCA" opacity="0.6"/>
 
-          <!-- Candle 3 -->
+          <!-- Candle 3 (right) x=205 -->
+          <rect x="200" y="72" width="10" height="38" rx="5" fill="#34D399"/>
+          <rect x="202" y="74" width="3" height="32" rx="1.5" fill="white" opacity="0.3"/>
+          <rect x="200" y="107" width="10" height="4" rx="2" fill="#059669"/>
           <g id="flame3" class="flame flame-3">
-            <ellipse cx="130" cy="42" rx="10" ry="14" fill="url(#glowG)"/>
-            <ellipse cx="130" cy="47" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
-            <ellipse cx="130" cy="48" rx="3" ry="5" fill="#FFB800"/>
-            <ellipse cx="130" cy="49" rx="1.5" ry="2.5" fill="#FFF8D6"/>
+            <ellipse cx="205" cy="62" rx="9" ry="13" fill="url(#glowG)"/>
+            <path d="M205,74 C202,68 199,62 203,55 C204,52 205,49 205,46 C205,49 206,52 207,55 C211,62 208,68 205,74Z" fill="#FF8C00"/>
+            <path d="M205,72 C203,67 201,63 204,57 C205,54 205,52 205,50 C205,52 205,54 206,57 C209,63 207,67 205,72Z" fill="#FFD700"/>
+            <path d="M205,70 C204,66 203,63 205,59 C205,57 205,56 205,55 C205,56 205,57 205,59 C207,63 206,66 205,70Z" fill="#FFF8DC"/>
           </g>
-          <rect x="126" y="56" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
-          <rect x="127" y="58" width="6" height="28" rx="3" fill="#F794A4"/>
-          <rect x="129" y="60" width="2" height="24" rx="1" fill="#FBBDCA" opacity="0.6"/>
 
-          <!-- Candle 4 -->
-          <g id="flame4" class="flame flame-4">
-            <ellipse cx="170" cy="40" rx="10" ry="14" fill="url(#glowG)"/>
-            <ellipse cx="170" cy="45" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
-            <ellipse cx="170" cy="46" rx="3" ry="5" fill="#FFB800"/>
-            <ellipse cx="170" cy="47" rx="1.5" ry="2.5" fill="#FFF8D6"/>
-          </g>
-          <rect x="166" y="54" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
-          <rect x="167" y="56" width="6" height="30" rx="3" fill="#F794A4"/>
-          <rect x="169" y="58" width="2" height="26" rx="1" fill="#FBBDCA" opacity="0.6"/>
-
-          <!-- Candle 5 -->
-          <g id="flame5" class="flame flame-5">
-            <ellipse cx="210" cy="42" rx="10" ry="14" fill="url(#glowG)"/>
-            <ellipse cx="210" cy="47" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
-            <ellipse cx="210" cy="48" rx="3" ry="5" fill="#FFB800"/>
-            <ellipse cx="210" cy="49" rx="1.5" ry="2.5" fill="#FFF8D6"/>
-          </g>
-          <rect x="206" y="56" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
-          <rect x="207" y="58" width="6" height="28" rx="3" fill="#F794A4"/>
-          <rect x="209" y="60" width="2" height="24" rx="1" fill="#FBBDCA" opacity="0.6"/>
-
-          <!-- Candle 6 -->
-          <g id="flame6" class="flame flame-6">
-            <ellipse cx="250" cy="40" rx="10" ry="14" fill="url(#glowG)"/>
-            <ellipse cx="250" cy="45" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
-            <ellipse cx="250" cy="46" rx="3" ry="5" fill="#FFB800"/>
-            <ellipse cx="250" cy="47" rx="1.5" ry="2.5" fill="#FFF8D6"/>
-          </g>
-          <rect x="246" y="54" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
-          <rect x="247" y="56" width="6" height="30" rx="3" fill="#F794A4"/>
-          <rect x="249" y="58" width="2" height="26" rx="1" fill="#FBBDCA" opacity="0.6"/>
-
-          <!-- Candle 7 -->
-          <g id="flame7" class="flame flame-7">
-            <ellipse cx="290" cy="42" rx="10" ry="14" fill="url(#glowG)"/>
-            <ellipse cx="290" cy="47" rx="5" ry="8" fill="#FF6B00" opacity="0.95"/>
-            <ellipse cx="290" cy="48" rx="3" ry="5" fill="#FFB800"/>
-            <ellipse cx="290" cy="49" rx="1.5" ry="2.5" fill="#FFF8D6"/>
-          </g>
-          <rect x="286" y="56" width="8" height="1.5" rx="0.8" fill="#2B1B17"/>
-          <rect x="287" y="58" width="6" height="28" rx="3" fill="#F794A4"/>
-          <rect x="289" y="60" width="2" height="24" rx="1" fill="#FBBDCA" opacity="0.6"/>
-
-          <!-- UPPER TIER -->
-          <rect x="30" y="86" width="280" height="80" rx="12" fill="#A6E3F5"/>
-          <rect x="30" y="86" width="280" height="18" rx="9" fill="#EAE6FF"/>
-          <path d="M30,104 Q50,118 70,104 Q90,118 110,104 Q130,118 150,104 Q170,118 190,104 Q210,118 230,104 Q250,118 270,104 Q290,118 310,104" fill="none" stroke="#EAE6FF" stroke-width="12" stroke-linecap="round"/>
-
-          <!-- LOWER TIER -->
-          <rect x="0" y="166" width="340" height="100" rx="14" fill="#A6E3F5"/>
-          <rect x="0" y="166" width="340" height="20" rx="10" fill="#EAE6FF"/>
-          <path d="M0,186 Q24,202 48,186 Q72,202 96,186 Q120,202 144,186 Q168,202 192,186 Q216,202 240,186 Q264,202 288,186 Q312,202 336,186" fill="none" stroke="#EAE6FF" stroke-width="14" stroke-linecap="round"/>
-
-          <!-- CAKE BASE -->
-          <rect x="0" y="266" width="340" height="20" rx="8" fill="#D4CFFF"/>
-          <rect x="0" y="278" width="340" height="8" rx="4" fill="#B8B0FF"/>
+          <!-- ── STAR SPRINKLES ── -->
+          <text x="58" y="240" font-size="13" fill="#FFD700" opacity="0.8">✦</text>
+          <text x="268" y="235" font-size="11" fill="#FFD700" opacity="0.7">✦</text>
+          <text x="92" y="165" font-size="10" fill="#FFD700" opacity="0.75">✦</text>
+          <text x="222" y="162" font-size="12" fill="#FFD700" opacity="0.7">✦</text>
         </svg>
       </div>
 
@@ -786,7 +796,7 @@
     // ─────────────────────────────────────────────
     // 🎂  GIFT 1 CONFIG
     // ─────────────────────────────────────────────
-    const WISH_MESSAGE = "happy birthday\nbestie";
+    const WISH_MESSAGE = "happy birthday\nfour-eyes";
 
     let isBlown = false;
 
@@ -843,9 +853,9 @@
       const heading = document.getElementById('wishHeading');
       heading.innerHTML = '<h1 id="wishText" class="text-4xl sm:text-5xl md:text-6xl font-bold text-white drop-shadow-sm select-none leading-tight"></h1>';
       setTimeout(() => typewrite(document.getElementById('wishText'), 'Make a wish 💫', 70), 100);
-      for (let i = 1; i <= 7; i++) {
+      for (let i = 1; i <= 3; i++) {
         const f = document.getElementById('flame' + i);
-        if (f) { f.style.transition = ''; f.style.transform = ''; f.style.opacity = ''; }
+        if (f) { f.style.transition = ''; f.style.opacity = ''; f.style.animation = ''; }
       }
       const blowWrap = document.getElementById('blowBtnWrap');
       if (blowWrap) blowWrap.style.display = 'flex';
@@ -859,12 +869,11 @@
       isBlown = true;
 
       // Extinguish all 7 flames
-      for (let i = 1; i <= 7; i++) {
+      for (let i = 1; i <= 3; i++) {
         const f = document.getElementById('flame' + i);
         if (f) {
-          f.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
-          f.style.transformOrigin = 'center bottom';
-          f.style.transform = 'scale(0)';
+          f.style.animation = 'none';
+          f.style.transition = 'opacity 0.4s ease';
           f.style.opacity = '0';
         }
       }
@@ -922,6 +931,14 @@
       boxes.forEach((box, i) => {
         box.textContent = currentInput[i] || "";
       });
+    }
+
+    // ─── Clear all input ───
+    function clearInput() {
+      if (isLocked) return;
+      currentInput = "";
+      nextBtnContainer.innerHTML = "";
+      updateDisplay();
     }
 
     // ─── Handle a key press (from keypad or keyboard) ───
